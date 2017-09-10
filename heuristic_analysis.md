@@ -1,6 +1,6 @@
 # Definitions
 
-The optional plan consists in a plan with the right length (6, 9 and 12) that
+The optimal plan consists in a plan with the right length (6, 9 and 12) that
 take the less time to compute.
 
 The timeout annotation on Time columns means that the search takes more than 600
@@ -71,9 +71,9 @@ Solving Air Cargo Problem 2 using h_ignore_preconditions...
 
 | Problem     | Expansions | Goal Tests | New Nodes | Plan Length | Time (sec.) |
 |:------------|:----------:|:----------:|:---------:|:-----------:|:-----------:|
-| Problem 1   |     43     |     56     |     180   |      6      |    0.0252   |
-| Problem 2   |          - |          - |         - |           - |  timeout    |
-| Problem 3   |   14663    |    18098   |   129631  |      12     |  118.1575   |
+| Problem 1   |     43     |      56    |     180   |      6      |    0.0252   |
+| Problem 2   |   3343     |    4609    |   30509   |      9      |   14.8592   |
+| Problem 3   |  14663     |   18098    |  129631   |     12      |  118.1575   |
 
 ## breadth_first_tree_search
 
@@ -137,9 +137,10 @@ Solving Air Cargo Problem 2 using h_ignore_preconditions...
 # Best approach 
 
 The breadth_* and depth_* search strategies results in too long plans with many
-timeouts this is due the fact that on each expansion we increase the frontier of
-the problem (in depth or in breadth) so our search space increase much more than the
-needed.
+timeouts this is due the fact that they rely on forward 
+search (AIMA, Chapter 11, pg 384), so on each expansion we increase the frontier 
+of the problem (in depth or in breadth) so our search space increase much more than 
+the needed. 
 
 The h_pg_levelsum expands into few nodes but take more time to compute, giving a
 timeout on Problem 3. This is due to the fact that the h_pg_levelsum expands the
@@ -147,3 +148,6 @@ use of planning graph to search the planning space.
 
 The technique that worked with more or less good time results and expansions
 for the three problems is the *h_ignore_preconditions*, so this is the best choice.
+Ignoring pre-condicions is a form of obtaining a relaxed form of the original
+problem more easy to solve (AIMA, Chapter 11, pg 386), then the solution for the
+relaxed version is a optimal solution for the original problem.
